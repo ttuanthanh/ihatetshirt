@@ -339,6 +339,24 @@ class ProductController extends Controller
                 ]; 
             }
 
+            if( $start_design && ( $start_design['inputs']['pid'] != Input::get('pid') || $start_design['inputs']['color_index'] != Input::get('index'))){
+                //if( ! $start_design ) {
+                $color_index = Input::get('index');
+                $product_design = json_decode($info->product_design, true);
+
+                $data['start_design']['inputs'] = [
+                    'pid'           => $pid,
+                    'type'          => @$product_design[$color_index]['color'] == '#ffffff' ? 0 : 1,
+                    'image'         => $product_design[$color_index]['image'][0]['url'],
+                    'color_index'   => $color_index,
+                    'color_hex'     => $product_design[$color_index]['color'],
+                    'color_title'   => $product_design[$color_index]['color_title'],
+                    'front_color'   => $start_design['inputs']['front_color'],
+                    'back_color'    => $start_design['inputs']['back_color'],
+                    'size'          => $start_design['inputs']['size']
+                ];
+            }
+
             if( $token = Input::get('reload') ) {                
                 $reload = $this->post->where('post_name', $token)->first();   
 
@@ -346,7 +364,8 @@ class ProductController extends Controller
                 $data['design_title'] = $this->postmeta->get_meta($reload->id, 'design_title');
 
                 $content = json_decode($reload->post_content, true);
-                $data['start_design']['inputs']  = $content['start_design']['inputs'];
+                if ( !Session::get('start_design'))
+                    $data['start_design']['inputs']  = $content['start_design']['inputs'];
             }
 
             return view('frontend.designer.save-modal', $data);            

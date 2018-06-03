@@ -1389,7 +1389,7 @@ angular.module('productApp', [
                     _this.initProductSubImages(id, colorIndex);
                 
                 }, start);
-                
+
                 $('body').attr('data-product-id', id);
                 $('body').attr('data-color-index', colorIndex);
             }
@@ -1402,7 +1402,7 @@ angular.module('productApp', [
             if(indexKey != null) {
                 $('body').attr('data-index', indexKey);
             }
-    
+            // $scope.fabric.countObjectColors();
             $scope.isloaded = true;
             $scope.$broadcast('rebuild:me');
         };
@@ -1430,6 +1430,7 @@ angular.module('productApp', [
 
                 $scope.objectLayers = [];
                 $scope.objectLayers = $scope.fabric.canvasLayers();
+                $scope.fabric.countObjectColors();
                 $scope.isloaded = false;
             }).error(function (data, status, headers, config) {
                 $scope.isloaded = false;

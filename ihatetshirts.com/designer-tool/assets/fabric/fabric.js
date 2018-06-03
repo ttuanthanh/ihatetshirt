@@ -553,7 +553,9 @@ angular.module('common.fabric', [
                         "colors":value.inkcolors
                     });
                 }
+                // self.countObjectColors();
             });
+            self.countObjectColors();
             return layers.reverse();
         };
 
