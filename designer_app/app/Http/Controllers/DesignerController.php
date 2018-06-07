@@ -340,7 +340,7 @@ class DesignerController extends Controller
         }
 
 
-        if( $inputs['email'] && !Session::get('save_notify') ) {
+        if( $inputs['email']) {
 
             // BEGIN EMAIL CONFIRMATION
             $data['email'] = $this->post->where('post_type', 'email')
