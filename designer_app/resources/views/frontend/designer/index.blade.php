@@ -619,6 +619,7 @@ $(document).on('click', '#screen-colors .bg-color', function() {
 $(document).on('click', '.product-colors .bg-color', function() {
     $('.bg-color').removeClass('selected');
     $(this).addClass('selected');
+    $('.chosen-color').html('Color :'+$(this).data('chosen-color'));
 });
 
 
