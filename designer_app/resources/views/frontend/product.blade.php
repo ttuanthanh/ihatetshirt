@@ -36,7 +36,15 @@
 	<div class="img-frame m-t-20">
 		<img src="{{ has_image($info->image) }}" class="img-product">					
 	</div>
+		@if($info->gallery)
 
+		<div class="gallery">
+			<img class="gall-thumb img-frame" src="{{ has_image($info->image) }}" data-image="{{has_image($info->image) }}">
+			@foreach( json_decode($info->gallery) as $g_i => $gall )
+				<img class="gall-thumb img-frame" src="{{ has_image($gall) }}" data-image="{{has_image($gall) }}">
+			@endforeach
+		</div>
+		@endif
 	</div>
 	<div class="col-md-7">
 
@@ -206,6 +214,12 @@
 	cursor: zoom-in;
 	box-shadow: 0px 0px 10px 0 #00000091;
 }
+.gall-thumb{
+	width: 100px;
+	cursor: pointer;
+	margin: 5px 5px 5px 0px;
+	box-shadow: 0px 0px 2px 0 #00000091;
+}
 </style>
 
 @stop
@@ -245,6 +259,20 @@ $(document).on('click', '.color-swatch', function() {
 		.zoom({'magnify':1.2, 'touch':true, 'url' : image});	
 
 	get_quote();
+});
+
+$(document).on('click', '.gall-thumb', function() {
+    var  image = $(this).data('image');
+    $('.gall-thumb').removeClass('actived');
+    $(this).addClass('actived');
+
+    $('.img-product').attr('src', image);
+
+
+    $('.img-product')
+        .parent()
+        .zoom({'magnify':1.2, 'touch':true, 'url' : image});
+
 });
 
 $('.img-product')
